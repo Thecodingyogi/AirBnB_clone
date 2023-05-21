@@ -98,6 +98,14 @@ class TestBaseModel_save(unittest.TestCase):
         with self.assertRaises(TypeError):
             b.save(None)
 
+    def test_save_updates_file(self):
+        """Tests if file is updated when save() is called."""
+        b = BaseModel()
+        b.save()
+        bid = "BaseModel.{}".format(b.id)
+        with open("file.json", "r", encoding="utf-8") as f:
+            self.assertIn(bid, f.read())
+
 
 class TestBaseModel_to_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the BaseModel class."""
